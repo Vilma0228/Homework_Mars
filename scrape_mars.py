@@ -14,6 +14,7 @@ def init_browser():
     exec_path = {'executable_path': '/usr/local/bin/chromedriver'}
     return Browser('chrome', **exec_path, headless=False)
 
+
 #List of URLs to explore and scrape
 url1 = 'https://mars.nasa.gov/news/'
 url2 = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
@@ -33,7 +34,7 @@ def scrape ():
 
     # Retrieve page with the requests module
     html = requests.get(url1)
-    time.sleep(1)
+    #time.sleep(1)
     html = browser.html
 
     ## Create BeautifulSoup object; parse with 'html.parser'
@@ -49,6 +50,9 @@ def scrape ():
     news_p = news_p_1.strip()
     news_p
 
+    print(news_p)
+
+    #import pdb; pdb.set_trace()
     # Return results
     #return news_title
 
@@ -79,7 +83,7 @@ def scrape ():
 
     img_relative = jpl_soup.find('img', class_='fancybox-image')['src']
     featured_image_url = f'https://www.jpl.nasa.gov{img_relative}'
-        #print (featured_image_url)
+    print (featured_image_url)
     
     featured_image_url = 'https://www.jpl.nasa.gov/spaceimages/images/mediumsize/PIA17440_ip.jpg'
     
@@ -161,8 +165,9 @@ def scrape ():
 
     # Mars Hemispheres URL (url5) & Dictionary to store results
     hemi_dicts = []
+        
 
-    for i in range(1,9,2): 
+    for i in range(4): 
         hemi_dict = {}
         browser.visit(url5)
         time.sleep(1)
@@ -188,16 +193,16 @@ def scrape ():
         hemi_dict['title'] = hemi_name.strip()
         #print(hemi_img_path)
         hemi_dict['img_url'] = hemi_img_path
+    
         hemi_dicts.append(hemi_dict)
 
     # Store data in dictionary
     
-        mars_data["hemi_dicts"] = hemi_dicts
+    mars_data["hemi_dicts"] = hemi_dicts
 
     browser.quit()
 
-return mars_data
+    return mars_data
 
-
-if __name__ == "__main__":
-    print(scrape())
+#if __name__ == "__main__":
+ #     app.run(debug=True)
